@@ -1,0 +1,11 @@
+#root {
+  background-color: #fdf7f7;
+  font-family: Arial, sans-serif;
+  display: flex;
+  margin: 0 auto;
+  height: 100vh;
+  padding: 2rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
