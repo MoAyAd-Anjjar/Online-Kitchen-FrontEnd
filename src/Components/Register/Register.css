@@ -46,7 +46,8 @@
 
 .Register-Container span:nth-of-type(1),
 .Register-Container span:nth-of-type(2),
-.Register-Container span:nth-of-type(3) {
+.Register-Container span:nth-of-type(3),
+.Register-Container span:nth-of-type(4) {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -77,6 +78,8 @@
     .Register-Container{
     
     max-width: 100%;
+    margin: 35px;
     }
+   
     
 }
