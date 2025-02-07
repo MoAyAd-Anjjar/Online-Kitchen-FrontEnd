@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { FiClock } from 'react-icons/fi';
 import Logo from '../../Images/Logo.png';
 import { useLocation } from 'react-router-dom'; // ✅ Use useLocation instead
