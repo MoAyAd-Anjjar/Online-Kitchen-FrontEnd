@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiClock } from 'react-icons/fi';
 import Logo from '../../Images/Logo.png';
 import { useLocation } from 'react-router-dom'; // ✅ Use useLocation instead
+import { BiUserCircle } from 'react-icons/bi';
+import { LuLogOut } from 'react-icons/lu';
 
 const Header = () => {
   const [time, setTime] = useState<string>("--:--:--");
@@ -37,8 +39,9 @@ const Header = () => {
         </span>
 
         <span className="Right-Header">
-          <FiClock />
-          <span>{time}</span>
+         <BiUserCircle size={20}></BiUserCircle>
+          Moayad anjjar
+          <LuLogOut size={20}></LuLogOut>
         </span>
       </div>
 

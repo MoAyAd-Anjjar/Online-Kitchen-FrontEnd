@@ -1,3 +1,4 @@
+/* General Styling */
 .Home-Container {
     font-size: 15px;
     display: flex;
@@ -5,33 +6,56 @@
     height: 100%;
     align-items: flex-start;
     flex-direction: column;
-
-}
-.Selected-Page{
-    background: wheat;
-    padding: 5px;
-}
-.Info-Post{
-    display: flex;
-        position: absolute;
-        gap: 28px;
-        top: 36%;
-        font-size: larger;
-        width: -webkit-fill-available;
-        flex-direction: column;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
+/* Selected Page Styling */
+.Selected-Page {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.Selected-Page:hover {
+    background-color: #f3f3f3;
+    transform: scale(1.05);
+}
+
+/* Info Post Styling */
+.Info-Post {
+    display: flex
+;
+    position: absolute;
+    gap: 28px;
+    top: 36%;
+    font-size: larger;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    font-size: 25px;
+    color: red;
+}
+
+/* Header Styling */
 .Header-Container {
     width: 100%;
     background-color: white;
     display: flex;
-    box-shadow: 0px 0px 6px 2px #434343;
-    flex-direction: column
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    transition: box-shadow 0.3s ease;
 }
 
-.left-Header {
+.Header-Container:hover {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Elements */
+.left-Header, .Right-Header {
     display: flex;
-    gap: 9px;
+    gap: 12px;
     align-items: center;
 }
 
@@ -41,49 +65,113 @@
     align-items: center;
     flex: 1;
     color: orangered;
-    flex-direction: row;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 1px 1px 4px rgba(255, 69, 0, 0.6);
 }
 
-.Right-Header {
-    display: flex;
-    gap: 9px;
-    align-items: center;
-}
-
+/* Header Logo */
 .Middle-Header img {
     width: 14vh;
     height: 12vh;
     object-fit: fill;
-
+    transition: transform 0.3s ease-in-out;
 }
 
+.Middle-Header img:hover {
+    transform: scale(1.1);
+}
+
+/* Top & Bottom Header */
 .Top-Header {
     display: flex;
-    padding: 0 15px 0px 15px;
+    padding: 0 15px;
     align-items: center;
 }
 
 .Bottom-Header {
-    background: radial-gradient(#fc4e00, #ffab37);
+    background: linear-gradient(130deg, #fc4e00, #ffab37);
     display: flex;
     padding: 10px 15px;
     gap: 23px;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s ease;
 }
+
+
+
+/* Image Slider */
 .Slider-Container {
     display: flex;
-    width: 100vw; /* Full viewport width */
-    height: 61vh; /* Adjust height */
+    width: 100vw;
+    height: 61vh;
     justify-content: center;
     align-items: flex-start;
-    overflow: hidden; /* Prevents unwanted scrolling */
+    overflow: hidden;
+    position: relative;
 }
 
 .Slider-Container img {
-    width: 100%; /* Fills width without overflow */
-    height: 100%; /* Fills height properly */
-    min-height: 400px; /* Prevents it from shrinking too much */
-    object-fit: inherit; /* Fills container while keeping aspect ratio */
+    width: 100%;
+    object-fit: fill;
+    height: 66vh;
+    object-fit: cover;
+  
 }
+
+.Slider-Container button {
+   
+    color: white;
+    background-color: #ff4e00a8;
+    width: 21vh;
+    padding: 10px;
+    border-radius: 22px;
+    cursor: pointer;
+    user-select: none;
+    border: 3px #ff8105 solid;
+}
+.Slider-Container button:hover {
+    background-color: #ff8105;
+    border: 3px #ff4e00 solid;
+   
+    transform: scale(1.2);  /* تكبير الزر عند التحويم */
+    transition: transform 0.3s ease-in-out;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 640px), (max-width: 280px) {
+    .Middle-Header {
+        flex-direction: column;
+    }
+    .Right-Header {
+        flex-direction: column-reverse;
+    }
+    .Bottom-Header {
+        font-size: 12px;
+        gap: 11px;
+    }
+}
+

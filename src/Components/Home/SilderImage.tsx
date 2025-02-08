@@ -1,5 +1,5 @@
 
-import Postimg from '../../Images/post.webp'
+import Postimg from '../../Images/post.jpg'
 const SilderImage = () => {
   return (
     <div className='Slider-Container'>
@@ -7,7 +7,7 @@ const SilderImage = () => {
         <span className='Info-Post'>
           <h2>Welcome to our Online Shop!</h2>
           <p>Discover our products, add them to your cart, and make purchases.</p>
-          <button>Shop Now</button>
+          <button>Order Now</button>
         </span>
         <img src={Postimg} alt="" />
       </span>
