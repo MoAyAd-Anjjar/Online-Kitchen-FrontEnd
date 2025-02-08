@@ -1,13 +1,14 @@
+
 import { useEffect, useState } from 'react';
 import { FiClock } from 'react-icons/fi';
 import Logo from '../../Images/Logo.png';
-import { useLocation } from 'react-router-dom'; // ✅ Use useLocation instead
+import { useLocation } from 'react-router-dom';  
 import { BiUserCircle } from 'react-icons/bi';
 import { LuLogOut } from 'react-icons/lu';
 
 const Header = () => {
   const [time, setTime] = useState<string>("--:--:--");
-  const location = useLocation(); // ✅ Correct hook for getting pathname
+  const location = useLocation(); 
 
   useEffect(() => {
     const interval = setInterval(() => {
