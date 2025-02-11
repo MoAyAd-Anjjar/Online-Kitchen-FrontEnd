@@ -1,0 +1,86 @@
+.menu-container {
+    text-align: center;
+    height: 100%;
+    background-image: url("./pexels-pixabay-326281.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+.menu-container h1{
+    font-size: 2.5em;
+    color: white;
+    margin: 10px;
+}
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.food-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.food-card:hover {
+    transform: scale(1.05);
+}
+
+.food-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.food-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.category {
+    color: #888;
+    font-size: 0.9em;
+}
+
+.description {
+    font-size: 0.9em;
+    margin: 10px 0;
+}
+
+.price {
+    font-weight: bold;
+    color: #3c4740;
+    font-size: 1.1em;
+}
+
+button {
+    background: #e25b64;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #df0c0c;
+}
+.Search-Section{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.Search-Section input[type="search"]{
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+}

@@ -5,12 +5,32 @@ import { FaUser } from 'react-icons/fa6'
 import { CgPassword } from 'react-icons/cg'
 import { MdEmail } from 'react-icons/md'
 
-const Login = () => {
+const Login = ({ User }: { User: (user: any) => void }) => {
     let navigate = useNavigate();
-    const HandleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-        navigate('/Home', { replace: false });
+    const HandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    }
+    
+        // جلب بيانات المستخدم من localStorage
+        const user = localStorage.getItem('UserInfo');
+    
+        // التحقق مما إذا كانت القيمة غير فارغة
+        if (user) {
+            try {
+                const Parseuser = JSON.parse(user); // محاولة التحليل
+                if (Parseuser) {
+                    User(Parseuser)
+                    
+                    
+                    navigate('/Home', { replace: false });
+                    return;
+                }
+            } catch (error) {
+                console.error("Error parsing user data:", error);
+            }
+        }
+    
+        alert('Invalid credentials');
+    };
     return (
         <div className='Register-Container'>
             <form className='Form-Flex' onSubmit={HandleSubmit}>

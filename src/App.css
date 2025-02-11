@@ -3,8 +3,13 @@
   font-family: Arial, sans-serif;
   display: flex;
   margin: 0 auto;
-  height: 100vh;
+  height: var(--root-height);
   text-align: center;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+
+:root {
+  --root-height:0; /* Default value for non-login pages */
 }

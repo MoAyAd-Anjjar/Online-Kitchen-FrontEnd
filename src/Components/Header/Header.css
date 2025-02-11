@@ -1,0 +1,86 @@
+.Selected-Page {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.Selected-Page:hover {
+    background-color: #f3f3f3;
+    transform: scale(1.05);
+}
+.Not-Selected-Page{
+ cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: normal;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.Not-Selected-Page:hover {
+    background-color: #ef6a3a;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: normal;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.Header-Container {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    transition: box-shadow 0.3s ease;
+}
+
+.Header-Container:hover {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Elements */
+.left-Header, .Right-Header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.Middle-Header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    color: orangered;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 1px 1px 4px rgba(255, 69, 0, 0.6);
+}
+
+/* Header Logo */
+.Middle-Header img {
+    width: 14vh;
+    height: 12vh;
+    object-fit: fill;
+    transition: transform 0.3s ease-in-out;
+}
+
+.Middle-Header img:hover {
+    transform: scale(1.1);
+}
+
+/* Top & Bottom Header */
+.Top-Header {
+    display: flex;
+    padding: 0 15px;
+    align-items: center;
+}
+
+.Bottom-Header {
+    background: linear-gradient(130deg, #fc4e00, #ffab37);
+    display: flex;
+    padding: 10px 15px;
+    gap: 23px;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
