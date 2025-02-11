@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { FiClock } from 'react-icons/fi';
 import Logo from '../../Images/Logo.png';
-import { Link, useLocation, useNavigate } from 'react-router-dom';  
+import { Link, useLocation } from 'react-router-dom';  
 import "./Header.css"
 import { BiUserCircle } from 'react-icons/bi';
 import { LuLogOut } from 'react-icons/lu';
@@ -10,7 +10,7 @@ import { LuLogOut } from 'react-icons/lu';
 const Header = () => {
   const [time, setTime] = useState<string>("--:--:--");
   const location = useLocation(); 
-  let navigate = useNavigate();
+
 
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Header = () => {
           <LuLogOut  cursor={"pointer"} size={20} 
           onClick={()=>{
             localStorage.removeItem("UserInfo");
-            navigate("/",{replace:false});
+            window.location.href="/"
           }}
           ></LuLogOut>
         </span>
