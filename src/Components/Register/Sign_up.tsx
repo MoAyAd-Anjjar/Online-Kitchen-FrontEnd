@@ -7,15 +7,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Sign_up = () => {
-    const navigate = useNavigate(); // لاستخدام التنقل بدلاً من window.location.href
+    const navigate = useNavigate();
     const [NewUser, setNewUser] = useState<{ username?: string; password?: string; email?: string; extra?: string }>({});
 
     const HandleCreation = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (NewUser.username && NewUser.password && NewUser.email) {
             localStorage.setItem("UserInfo", JSON.stringify(NewUser));
-            navigate("/"); // التنقل إلى الصفحة الرئيسية
+            navigate("/");
         } else {
             alert("Please fill all the fields");
         }
