@@ -54,7 +54,7 @@ const Header = () => {
       <div className='Bottom-Header'>
         <Link className={location.pathname === "/Home" ? "Selected-Page" : "Not-Selected-Page"} to={"Home"}>Home</Link>
         <Link className={location.pathname === "/About Us" ? "Selected-Page" : "Not-Selected-Page"}to={"about"}>About Us</Link>
-        <Link  className={location.pathname === "/Contact" ? "Selected-Page" : "Not-Selected-Page"}to={"Contact"}>Contact</Link>
+        <Link  className={location.pathname === "/Forum" ? "Selected-Page" : "Not-Selected-Page"}to={"Forum"}>Forum</Link>
         <Link  className={location.pathname === "/MenuList" ? "Selected-Page" : "Not-Selected-Page"}  to={"MenuList"} >Products</Link>
         <Link  className={location.pathname === "/Cart" ? "Selected-Page" : "Not-Selected-Page"} to={"Cart"} >Cart</Link>
       </div>

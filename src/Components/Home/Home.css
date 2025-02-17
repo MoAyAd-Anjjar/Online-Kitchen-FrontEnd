@@ -14,8 +14,7 @@
 
 /* Info Post Styling */
 .Info-Post {
-    display: flex
-;
+    display: flex;
     position: absolute;
     gap: 28px;
     top: 36%;
@@ -46,11 +45,11 @@
     object-fit: fill;
     height: 66vh;
     object-fit: cover;
-  
+
 }
 
 .Slider-Container button {
-   
+
     color: white;
     background-color: #ff4e00a8;
     width: 21vh;
@@ -60,23 +59,18 @@
     user-select: none;
     border: 3px #ff8105 solid;
 }
+
 .Slider-Container button:hover {
     background-color: #ff8105;
     border: 3px #ff4e00 solid;
-    transform: scale(1.2); 
+    transform: scale(1.2);
     transition: transform 0.3s ease-in-out;
 }
 
 
-.Popular-Container{
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
-.Card-Container{
+
+.Card-Container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -84,39 +78,190 @@
 }
 
 
+/* Container for Popular Foods */
+.Popular-Container {
+    text-align: center;
+    width: 100%;
+    background: linear-gradient(182deg, #ffffff, #696969);
+}
+
+.Popular-Container h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ff6347;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+/* Card Container */
+.Card-Container {
+    display: flex;
+
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Popular Food Card */
+.Popular-Food {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.Popular-Food:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Image Styling */
+.Popular-Food img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: 0.3s ease;
+}
+
+/* Hover effect on image */
+.Popular-Food:hover img {
+    transform: scale(1.1);
+}
+
+/* Title & Description Styling */
+.Popular-Food h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.Popular-Food p {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.6;
+}
+
+
+/* Container for Services */
+.service-container {
+    text-align: center;
+    padding-top: 12px;
+    background: #43434314;
+  
+}
+
+/* Heading */
+.service-container h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ff6347;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Card Layout */
+.card-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Individual Service Card */
+.service-card {
+    display: flex;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center
+}
+
+.service-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Service Icon */
+.service-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    transition: 0.3s ease;
+}
+
+/* Hover effect on icon */
+.service-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Service Title */
+.service-card h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Service Description */
+.service-card p {
+    font-size: 16px;
+    color: #777;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media (max-width: 640px), (max-width: 280px) {
+@media (max-width: 640px),
+(max-width: 280px) {
     .Middle-Header {
         flex-direction: column;
     }
+
     .Right-Header {
         flex-direction: column-reverse;
     }
+
     .Bottom-Header {
         font-size: 12px;
         gap: 11px;
+        width: 100%;
+
     }
-    .Info-Post{
+
+    .Info-Post {
         font-size: 20px;
         top: 24%;
+    }
+
+    .Card-Container {
+        padding: 40px;
+    }
+
+    .Popular-Container h2 {
+        font-size: 24px;
+        margin: 22px;
+    }
+    .service-container .card-container{
+        flex-direction: column;
     }
 }
 

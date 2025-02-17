@@ -3,32 +3,32 @@
 const popularFoods = [
   {
     name: 'Pizza',
-    image: 'https://source.unsplash.com/200x200/?pizza',
+    image: 'https://wallpapers.com/images/featured/4k-food-y48pwsir6u6w5iws.jpg',
     description: 'Delicious cheesy pizza with fresh toppings.'
   },
   {
     name: 'Sushi',
-    image: 'https://source.unsplash.com/200x200/?sushi',
+    image: 'https://wallpapers.com/images/featured/4k-food-y48pwsir6u6w5iws.jpg',
     description: 'Fresh and healthy sushi rolls with wasabi.'
   },
   {
     name: 'Burger',
-    image: 'https://source.unsplash.com/200x200/?burger',
+    image: 'https://wallpapers.com/images/featured/4k-food-y48pwsir6u6w5iws.jpg',
     description: 'Juicy burger with crispy fries on the side.'
   },
   {
     name: 'Pasta',
-    image: 'https://source.unsplash.com/200x200/?pasta',
+    image: 'https://wallpapers.com/images/featured/4k-food-y48pwsir6u6w5iws.jpg',
     description: 'Italian-style pasta with rich creamy sauce.'
   }
 ];
 
-const Middel = () => {
+const Middle = () => {
   return (
     
     <div className="Popular-Container">
      <h2>
-        Popular Foods 
+       Our Popular Foods 
         </h2>  
         <div className='Card-Container'>
             {popularFoods.map((food, index) => (
@@ -43,4 +43,4 @@ const Middel = () => {
   );
 };
 
-export default Middel;
+export default Middle;

@@ -27,6 +27,9 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .Header-Container {
+    /* position: sticky;
+    top: 0;
+    z-index: 1; */
     width: 100%;
     background-color: white;
     display: flex;

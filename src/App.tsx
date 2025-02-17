@@ -8,6 +8,7 @@ import Header from "./Components/Header/Header";
 import { useEffect, useState } from "react";
 import Menu from "./Components/Menu/Menu";
 import Cart from "./Components/Cart/Cart";
+import Forum from "./Components/Forum/Forum";
 
 const RootStyleUpdater = () => {
   const location = useLocation();
@@ -46,6 +47,7 @@ function App() {
         <Route path="/Sign_up" element={<Sign_up />} />
         <Route path="/MenuList" element={<Menu />} />
         <Route path="/Cart" element={<Cart />} />
+        <Route path="/Forum" element={<Forum/>} />
 
       </Routes>
     </BrowserRouter>
