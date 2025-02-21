@@ -1,5 +1,4 @@
 const FoodCategory:string[] = [
-    "None",
     "Salad",
     "Vegetables",
     "Appetizer",
@@ -7,7 +6,8 @@ const FoodCategory:string[] = [
     "Dessert",
     "Drink",
     "Fish",
-    "Grains"
+    "Grains",
+    "Meal"
 ]
 
 

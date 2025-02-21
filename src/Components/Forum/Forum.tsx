@@ -16,7 +16,7 @@ export interface IFoodItem {
 }
 
 const Forum = () => {
-  const [image, setImage] = useState<string | null>(null);
+  const [, setImage] = useState<string | null>(null);
   const [previmg, setprevimg] = useState<string | null>(null)
   const [SelectedCategory, setSelectedCategory] = useState<string>("");
   const { CreateFood } = useFood();
@@ -60,8 +60,6 @@ const Forum = () => {
       if (response.data.imageUrl) {
         const imageURL = URL.createObjectURL(file);
         setprevimg(imageURL)
-        console.log(response.data.imageUrl);
-        
         setImage(response.data.imageUrl);
         setFoodData((prev) => ({ ...prev, image: response.data.imageUrl }));
       }
@@ -164,7 +162,7 @@ const Forum = () => {
         </select>
 
         <textarea
-          maxLength={70}
+          maxLength={150}
           name="description"
           placeholder="Describe the dish..."
           value={foodData.description}

@@ -45,8 +45,7 @@ const useFood = () => {
 
   const GetFoods = async () => {
     const baseUrl = import.meta.env.VITE_API_URL as string | undefined;
-   
-    
+
     if (!baseUrl) {
       console.error("VITE_API_URL is not defined. Check your .env file.");
       throw new Error("Server URL is not defined.");
@@ -55,9 +54,10 @@ const useFood = () => {
       const response: AxiosResponse = await axios.get(
         `${baseUrl}/Food/GetFoods`
       );
+     
 
       if (response.status === 200) {
-        return response.data.Data;
+        return response.data.foods;
       }
     } catch (error: any) {
       if (error.response && error.response.status === 401) {

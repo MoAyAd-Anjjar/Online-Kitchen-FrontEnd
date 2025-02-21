@@ -11,6 +11,7 @@ import Cart from "./Components/Cart/Cart";
 import Forum from "./Components/Forum/Forum";
 import { ToastContainer } from "react-toastify";
 import { useUserContext } from "./Provider/UserProvider";
+import Favorite from "./Components/Favorite/Favorite";
 
 const RootStyleUpdater = () => {
   const location = useLocation();
@@ -48,6 +49,8 @@ function App() {
         <Route path="/MenuList" element={<Menu />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Forum" element={<Forum />} />
+        <Route path="/Favorite" element={<Favorite />} />
+
       </Routes>
     </BrowserRouter>
   );

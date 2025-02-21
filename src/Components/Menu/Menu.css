@@ -21,7 +21,7 @@
     padding: 20px;
 }
 .food-table{
-    height: 100vh;
+    height: 100%;
 
 }
 .food-card {
@@ -121,15 +121,27 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 
-.Category-style {
+.Category-style-not {
     border-radius: 17px;
     display: flex;
     padding: 9px;
     background-color: #f6e2549c;
 
 }
+.Category-style {
+    border-radius: 17px;
+    display: flex;
+    padding: 9px;
+    background-color: #f6d700;
+
+}
 
 .Category-style:hover {
+    background-color: #f6d700;
+    cursor: pointer;
+
+}
+.Category-style-not:hover {
     background-color: #f6d700;
     cursor: pointer;
 
