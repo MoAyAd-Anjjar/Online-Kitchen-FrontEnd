@@ -5,10 +5,12 @@ import Sign_up from "./Components/Register/Sign_up";
 import PageNotFound from "./Components/Register/pageNotFound/404page";
 import Home from "./Components/Home/Home";
 import Header from "./Components/Header/Header";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Menu from "./Components/Menu/Menu";
 import Cart from "./Components/Cart/Cart";
 import Forum from "./Components/Forum/Forum";
+import { ToastContainer } from "react-toastify";
+import { useUserContext } from "./Provider/UserProvider";
 
 const RootStyleUpdater = () => {
   const location = useLocation();
@@ -25,30 +27,27 @@ const RootStyleUpdater = () => {
 };
 
 function App() {
-  const [user, setuser] = useState<any>(null);
-  const setUser = (User: any) => {
-    setuser(User);
-  };
-  useEffect(() => {
-    const storedUser = localStorage.getItem("UserInfo");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, [])
+  const { User } = useUserContext();
+ 
+
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <RootStyleUpdater />
-      {user ? <Header /> : null}
+
+      {/* Conditionally render Header */}
+      {User.userid || window.location.pathname !== "/" ? <Header /> : null}
+
+      {/* Main Routes */}
       <Routes>
-        <Route path="/" element={<Login User={setUser} />} />
+        <Route path="/" element={<Login />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Sign_up" element={<Sign_up />} />
         <Route path="/MenuList" element={<Menu />} />
         <Route path="/Cart" element={<Cart />} />
-        <Route path="/Forum" element={<Forum/>} />
-
+        <Route path="/Forum" element={<Forum />} />
       </Routes>
     </BrowserRouter>
   );

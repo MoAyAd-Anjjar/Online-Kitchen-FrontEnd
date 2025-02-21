@@ -17,9 +17,13 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
+    
     padding: 20px;
 }
+.food-table{
+    height: 100vh;
 
+}
 .food-card {
     background: #fff;
     border-radius: 10px;
