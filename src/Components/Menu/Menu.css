@@ -21,7 +21,7 @@
     padding: 20px;
 }
 .food-table{
-    height: 100%;
+    height: 100dvh;
 
 }
 .food-card {
@@ -167,5 +167,9 @@ input[type="number"]::-webkit-outer-spin-button {
     }
     .Search-Section{
         flex-direction: column;
+    }
+    .food-table{
+        height: 100vh;
+       
     }
 }

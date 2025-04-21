@@ -1,63 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import './Cart.css';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number; // Add quantity property
-}
-
-const initialProducts: Product[] = [
-  { id: 1, name: 'Beef Burger', price: 199.99, image: 'https://static01.nyt.com/images/2022/06/27/dining/kc-mushroom-beef-burgers/merlin_209008674_b3fa58fa-9bb1-4cfe-a08a-40b4dda0de78-superJumbo.jpg', quantity: 1 },
-  { id: 2, name: 'Grilled Chicken', price: 999.99, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuC2DselGxx3dvaMGvjBRRtwUwtyE2awiMCQ&s', quantity: 1 },
-  { id: 3, name: 'Grilled Chicken', price: 999.99, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuC2DselGxx3dvaMGvjBRRtwUwtyE2awiMCQ&s', quantity: 1 },
-  { id: 4, name: 'Grilled Chicken', price: 999.99, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuC2DselGxx3dvaMGvjBRRtwUwtyE2awiMCQ&s', quantity: 1 },
-  { id: 5, name: 'Grilled Chicken', price: 999.99, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuC2DselGxx3dvaMGvjBRRtwUwtyE2awiMCQ&s', quantity: 1 },
-  { id: 6, name: 'Grilled Chicken', price: 999.99, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuC2DselGxx3dvaMGvjBRRtwUwtyE2awiMCQ&s', quantity: 1 },
-  { id: 7, name: 'Grilled Chicken', price: 999.99, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuC2DselGxx3dvaMGvjBRRtwUwtyE2awiMCQ&s', quantity: 1 },
-  { id: 8, name: 'Cheese Pizza', price: 349.99, image: 'https://thestayathomechef.com/wp-content/uploads/2023/07/Easy-Cheese-Pizza_Square-1.jpg', quantity: 1 },
-  { id: 9, name: 'Cheese Pizza', price: 349.99, image: 'https://thestayathomechef.com/wp-content/uploads/2023/07/Easy-Cheese-Pizza_Square-1.jpg', quantity: 1 },
-  { id: 10, name: 'Cheese Pizza', price: 349.99, image: 'https://thestayathomechef.com/wp-content/uploads/2023/07/Easy-Cheese-Pizza_Square-1.jpg', quantity: 1 },
-  { id: 11, name: 'Cheese Pizza', price: 349.99, image: 'https://thestayathomechef.com/wp-content/uploads/2023/07/Easy-Cheese-Pizza_Square-1.jpg', quantity: 1 },
-];
+import React, { useState, useEffect } from "react";
+import "./Cart.css";
+import { CartState, useCartContext } from "../../Provider/CartProvider";
+import { useUserContext } from "../../Provider/UserProvider";
+import { useNavigate } from "react-router-dom";
 
 const CartPage: React.FC = () => {
-  const [cart, setCart] = useState<Product[]>(initialProducts);
+  const [Cart, setCart] = useState<CartState>();
   const [total, setTotal] = useState<number>(0);
+  const {SetAmount}=useUserContext()
+  const nav=useNavigate()
+  const { cart, removeFromCart, HandelDecares, HandelIncases,clearCart } = useCartContext();
 
-  // Call the updateTotal function whenever the cart changes
   useEffect(() => {
-    updateTotal(cart);
+    setCart(cart);
   }, [cart]);
+  useEffect(() => {
+    UpdateTotal();
+  }, [Cart]);
 
-  // const addToCart = (product: Product) => {
-  //   setCart((prevCart) => {
-  //     const newCart = [...prevCart, { ...product, quantity: 1 }];
-  //     return newCart;
-  //   });
-  // };
 
-  const removeFromCart = (productId: number) => {
-    setCart((prevCart) => {
-      const newCart = prevCart.filter((item) => item.id !== productId);
-      return newCart;
-    });
-  };
-
-  const updateQuantity = (productId: number, change: number) => {
-    setCart((prevCart) => {
-      const newCart = prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity: item.quantity + change } : item
-      ).filter(item => item.quantity > 0); // Prevent negative quantity
-      return newCart;
-    });
-  };
-
-  const updateTotal = (cart: Product[]) => {
-    const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    setTotal(totalPrice);
+  const UpdateTotal = () => {
+    if (Cart?.userList) {
+      const newTotal = Cart.userList.reduce((total, item) => {
+        return total + item.quantity * item.price;
+      }, 0);
+      setTotal(newTotal);
+      SetAmount(newTotal)
+    }
   };
 
   return (
@@ -65,27 +34,44 @@ const CartPage: React.FC = () => {
       <div className="cart-container">
         <h1 className="cart-title">Your Food List</h1>
 
-        {cart.length === 0 ? (
+        {Cart?.userList.length === 0 ? (
           <div className="cart-empty">
             <p>Your cart is empty.</p>
           </div>
         ) : (
           <div className="cart-items">
-            {cart.map((product) => (
-              <div key={product.id} className="cart-item">
+            {Cart?.userList.map((Food) => (
+              <div key={Food.id} className="cart-item">
                 <div className="cart-item-details">
-                  <img src={product.image} alt={product.name} className="cart-item-image" />
+                  <img
+                    src={Food.image}
+                    alt={Food.name}
+                    className="cart-item-image"
+                  />
                   <div>
-                    <h2 className="cart-item-name">{product.name}</h2>
-                    <p className="cart-item-price">${(product.price * product.quantity).toFixed(2)}</p>
+                    <h2 className="cart-item-name">{Food.name}</h2>
+                    <p className="cart-item-price">${Food.price.toFixed(2)}</p>
                   </div>
                 </div>
                 <div className="cart-item-quantity">
-                  <button onClick={() => updateQuantity(product.id, -1)} className="quantity-button">-</button>
-                  <span>{product.quantity}</span>
-                  <button onClick={() => updateQuantity(product.id, 1)} className="quantity-button">+</button>
+                  <button
+                    className="quantity-button"
+                    onClick={() => HandelDecares(Food.id)}
+                  >
+                    -
+                  </button>
+                  <span>{Food.quantity}</span>
+                  <button
+                    className="quantity-button"
+                    onClick={() => HandelIncases(Food.id)}
+                  >
+                    +
+                  </button>
                 </div>
-                <button onClick={() => removeFromCart(product.id)} className="cart-item-remove">
+                <button
+                  onClick={() => removeFromCart(Food.id)}
+                  className="cart-item-remove"
+                >
                   Remove
                 </button>
               </div>
@@ -93,7 +79,7 @@ const CartPage: React.FC = () => {
           </div>
         )}
 
-        {cart.length > 0 && (
+        {cart.userList.length > 0 && (
           <div className="cart-summary">
             <span>Total</span>
             <span>${total.toFixed(2)}</span>
@@ -101,14 +87,25 @@ const CartPage: React.FC = () => {
         )}
 
         <div className="cart-checkout">
-          {cart.length > 0 &&
+          {cart.userList.length > 0 && (
+            <div>
+
             <button
-              onClick={() => alert('Proceeding to checkout...')}
+              onClick={()=>nav("/Payment")}
               className="checkout-button"
-            >
+              >
               Checkout
             </button>
-          }</div>
+            <button
+              onClick={clearCart}
+              className="checkout-button"
+              >
+              Clear List
+            </button>
+              </div>
+            
+          )}
+        </div>
       </div>
     </div>
   );

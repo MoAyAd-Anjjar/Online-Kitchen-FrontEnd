@@ -4,6 +4,7 @@ import { ImImage } from "react-icons/im";
 import Category from "../../Common/Category";
 import useFood from "../../Hooks/FoodHook";
 import axios, { AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 
 export interface IFoodItem {
   id: number;
@@ -13,11 +14,13 @@ export interface IFoodItem {
   description: string;
   image: string;
   rate?: number;
+  quantity: number;
 }
 
 const Forum = () => {
   const [, setImage] = useState<string | null>(null);
-  const [previmg, setprevimg] = useState<string | null>(null)
+  const [Send, setSend] = useState(false)
+  const [previmg, setprevimg] = useState<string | null>(null);
   const [SelectedCategory, setSelectedCategory] = useState<string>("");
   const { CreateFood } = useFood();
   const [foodData, setFoodData] = useState<IFoodItem>({
@@ -27,47 +30,69 @@ const Forum = () => {
     category: "",
     description: "",
     image: "",
+    rate: 0,
+    quantity: 1,
   });
 
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const baseUrl = import.meta.env.VITE_API_URL as string | undefined;
-
     const file = event.target.files?.[0];
+
+    console.log(foodData);
+    if (!foodData.name.trim()) {
+      toast.info("Please fill the filed first.", { position: "top-center" });
+      setprevimg("")
+   
+
+        return;
+    }
+   
     if (!file) return;
-  
-    const FoodName = foodData.name; // Assuming foodData is already populated
+
     const formData = new FormData();
-    formData.append("image", file); // Append the file
-    formData.append("FoodName", FoodName); // Append the FoodName
-  
+    const FoodName = foodData.name; // Assuming foodData is already populated
+
+    formData.append("FoodName", FoodName);
+    formData.append("image", file);
+
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data", // Ensure this is set
+        "Content-Type": "multipart/form-data",
       },
     };
-  
 
-  
     try {
-      const response: AxiosResponse = await axios.post(
-        `${baseUrl}/Food/upload`, // Your API endpoint
-        formData, // Send the FormData object
+      const response:AxiosResponse = await axios.post(
+        `${baseUrl}/Food/upload`,
+        formData,
         config
       );
-  
+
       if (response.data.imageUrl) {
+        // Create and set preview image
         const imageURL = URL.createObjectURL(file);
-        setprevimg(imageURL)
+        setprevimg(imageURL);
+
+        // Store the image URL from response
         setImage(response.data.imageUrl);
         setFoodData((prev) => ({ ...prev, image: response.data.imageUrl }));
+
+        // Optional: Revoke the object URL when no longer needed
+        // You might want to do this in a cleanup function or when component unmounts
+        // URL.revokeObjectURL(imageURL);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
+      // More specific error handling could go here
+      if (axios.isAxiosError(error)) {
+        console.error("Server responded with:", error.response?.data);
+      }
     }
+    setSend(false)
   };
-  
+
   const handleSelectionChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -91,13 +116,17 @@ const Forum = () => {
       !foodData.name ||
       !foodData.price ||
       !foodData.category ||
-      !foodData.description
+      !foodData.description ||
+      !foodData.image
     ) {
-      alert("Please fill in all fields before submitting.");
+      toast.info("Please fill in all fields before submitting.", {
+        position: "top-center",
+      });
       return;
     }
-
+    // handleImageUpload()
     await CreateFood(foodData);
+    
   };
 
   return (

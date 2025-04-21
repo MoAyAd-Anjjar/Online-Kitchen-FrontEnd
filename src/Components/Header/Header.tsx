@@ -6,11 +6,15 @@ import "./Header.css";
 import { BiUserCircle } from "react-icons/bi";
 import { LuLogOut } from "react-icons/lu";
 import { useUserContext } from "../../Provider/UserProvider";
+import { IUser } from "../Register/Sign_up";
+
 
 const Header = () => {
   const [time, setTime] = useState<string>("--:--:--");
   const navigate = useNavigate();
   const { ClearUser,User } = useUserContext();
+  let [UserInfo, setUserInfo] = useState<any>()
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,6 +28,14 @@ const Header = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    const sessionData= sessionStorage.getItem("UserInfo");
+    if(sessionData){
+      setUserInfo(JSON.parse(sessionData))
+    }
+    
+ }, [User])
+ 
 
   return (
     <div className="Header-Container">
@@ -40,12 +52,13 @@ const Header = () => {
 
         <span className="Right-Header">
           <BiUserCircle size={20}></BiUserCircle>
-          Moayad anjjar
+          {UserInfo?.username}
           <LuLogOut
             cursor={"pointer"}
             size={20}
             onClick={() => {
               ClearUser();
+              sessionStorage.removeItem("UserInfo")
               navigate("/", { replace: false });
             }}
           ></LuLogOut>
@@ -74,7 +87,7 @@ const Header = () => {
           Favorite
         </Link>
         {
-User.role==="Admin"&&
+UserInfo?.role==="Admin"&&
           <Link
           className={
             location.pathname === "/Forum"

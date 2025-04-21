@@ -59,6 +59,7 @@ const Sign_up = () => {
           <input
             type="text"
             name="username"
+            maxLength={18}
             placeholder="Enter your Username"
             onChange={HandleChange}
           />

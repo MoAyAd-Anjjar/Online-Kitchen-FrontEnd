@@ -146,13 +146,17 @@
 }
 
 .checkout-button {
-    background-color: #38b2ac;
+    background-color: rgb(161, 161, 161);
     color: #fff;
     padding: 0.75rem 2rem;
     font-size: 1.125rem;
     border-radius: 8px;
     border: none;
     cursor: pointer;
+    margin: 3px;
+}
+.checkout-button:hover{
+    background-color: black;
 }
 
 @media (max-width: 500px) {

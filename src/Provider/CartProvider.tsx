@@ -1,131 +1,165 @@
-// import React, { createContext, useState, useContext, useEffect, ReactNode } from "react";
-// import { IProduct } from "../Tabs/HomeProduct"; // Ensure IProduct is correctly imported
-// import { useUserContext } from "./UserProvider";
-// import axios from "axios";
-// import useCart from "../Hook/cartHook";
+import {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+} from "react";
 
-// // Define the type for the cart state
-// type CartState = {
-//   user_id: string;
-//   username: string;
-//   cartList: IProduct[];
-// };
+import { IFoodItem } from "../Components/Forum/Forum";
+import { IUser } from "../Components/Register/Sign_up";
+import useCart from "../Hooks/CartHook";
 
-// // Define the type for the CartContext
-// type CartContextType = {
-//   cart: CartState;
-//   addToCart: (CartList: IProduct[]) => void;
-//   removeFromCart: (productId: string) => void;
-//   clearCart: () => void;
-//   HandelIncases: (productId: string) => void;
-//   HandelDecrees: (productId: string) => void;
-//   SaveCartState: () => void;
-// };
+// Define the type for the cart state
+export type CartState = {
+  userid: number | string;
+  username: string;
+  userList: IFoodItem[];
+};
 
-// // Create the Cart Context with a default value
-// const CartContext = createContext<CartContextType>({
-//   cart: { user_id: "", username: "", cartList: [] },
-//   addToCart: () => { },
-//   removeFromCart: () => { },
-//   clearCart: () => { },
-//   HandelIncases: () => { },
-//   HandelDecrees: () => { },
-//   SaveCartState: () => { }
-// });
+// Define the type for the CartContext
+type CartContextType = {
+  cart: CartState;
+  addToCart: (userList: IFoodItem[]) => void;
+  removeFromCart: (FoodID: number) => void;
+  clearCart: () => void;
+  HandelIncases: (FoodID: number) => void;
+  HandelDecares: (FoodID: number) => void;
+};
 
-// // Define the props for the CartProvider component
-// type CartProviderProps = {
-//   children: ReactNode;
-// };
+// Create the Cart Context with a default value
+const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// // Create the Cart Provider Component
-// const CartProvider = ({ children }: CartProviderProps) => {
-//   const { User } = useUserContext(); // Get user details from UserProvider
-//   const { getUserCart, updateUserCart } = useCart()
-//   // Initialize cart state with empty user details
-//   const [cart, setCart] = useState<CartState>({
-//     user_id: "",
-//     username: "",
-//     cartList: [],
-//   });
+// Define the props for the CartProvider component
+type CartProviderProps = {
+  children: ReactNode;
+};
 
+// Create the Cart Provider Component
+const CartProvider = ({ children }: CartProviderProps) => {
+  const [UserInfo, setUserInfo] = useState<IUser | null>(null);
+  const { ChangeCartState, GetUserCart } = useCart();
 
+  // Initialize cart state
+  const [cart, setCart] = useState<CartState>({
+    userid: "",
+    username: "",
+    userList: [],
+  });
 
+  // Load user info from session storage
+  useEffect(() => {
+    const sessionData = sessionStorage.getItem("UserInfo");
+    if (sessionData) {
+      setUserInfo(JSON.parse(sessionData));
+    }
+  }, []);
 
-//   useEffect(() => {
-//     const UserCartList = async () => {
-//       console.log("enter here...");
+  // Update cart state when UserInfo changes
+  useEffect(() => {
+    if (UserInfo) {
+      const GetUserCART = async () => {
+        const getCartList:CartState = await GetUserCart(UserInfo.userid, UserInfo.username);
+        setCart(getCartList);
+      };
+      GetUserCART();
+    }
+  }, [UserInfo]);
 
-//       const data = await getUserCart(User.username, User.user_id)
-//       setCart(data)
-//     }
-//     if (User.user_id && User.username) {
-//       console.log("enter");
-//       UserCartList()
-//     }
-//   }, [User])
+  // Track cart updates (for debugging)
+  useEffect(() => {
 
-//   useEffect(() => {
-//     console.log("cartstat:", cart);
+ 
+    
+    const updateCart = async () => {
 
-//   }, [cart])
+      await ChangeCartState(cart);
+    };
+    if(cart.userList&& cart.username)
+    updateCart();
+  }, [cart]);
 
+  // Function to add items to the cart
+  const addToCart = (CartList: IFoodItem[]) => {
+    
+    CartList.forEach((item) => {
+      const index = cart.userList.findIndex(
+        (cartItem) => cartItem.id === item.id
+      );
 
-//   const addToCart = (CartList: IProduct[]) => {
-//     setCart((prev) => ({
-//       ...prev,
-//       cartList: [...prev.cartList, ...CartList],
-//     }));
+      // If the item is not found (index is -1), add it to the cart
+      if (index === -1) {
+        setCart((prev) => ({
+          ...prev,
+          userList: [...prev.userList, item],
+        }));
+      }
+      });
 
-//   };
+ 
+    };
 
-//   // Function to remove an item from the cart
-//   const removeFromCart = (productId: string) => {
-//     setCart((prev) => ({
-//       ...prev,
-//       cartList: prev.cartList.filter((item) => item.product_id !== productId),
-//     }));
+  // Function to remove an item from the cart
+  const removeFromCart = (FoodID: number) => {
+    setCart((prev) => ({
+      ...prev,
+      userList: prev.userList.filter((item) => item.id !== FoodID),
+    }));
+  };
 
-//   };
+  // Function to clear the cart
+  const clearCart = () => {
+    setCart((prev) => ({
+      ...prev,
+      userList: [],
+    }));
+  };
 
-//   // Function to increase quantity
-//   const HandelIncases = (productId: string) => {
-//     setCart((prev) => ({
-//       ...prev,
-//       cartList: prev.cartList.map((item) =>
-//         item.product_id === productId ? { ...item, quantity: item.quantity + 1 } : item
-//       ),
-//     }))
-//   };
+  const HandelDecares = (foodID: number) => {
+    // Decrease the quantity of the food item
+    setCart((prev) => ({
+      ...prev,
+      userList: prev.userList.map((item) =>
+        item.id === foodID && item.quantity !== 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      ),
+    }));
+  };
 
-//   // Function to decrease quantity
-//   const HandelDecrees = (productId: string) => {
-//     setCart((prev) => ({
-//       ...prev,
-//       cartList: prev.cartList.map((item) =>
-//         item.product_id === productId ? { ...item, quantity: item.quantity - 1 } : item
-//       ),
-//     }))
-//   };
+  const HandelIncases = (foodID: number) => {
+    // Decrease the quantity of the food item
+    setCart((prev) => ({
+      ...prev,
+      userList: prev.userList.map((item) =>
+        item.id === foodID ? { ...item, quantity: item.quantity + 1 } : item
+      ),
+    }));
+  };
 
-//   // Function to clear the cart
-//   const clearCart = () => {
-//     setCart((prev) => ({
-//       ...prev, cartList: []
-//     }))
-//   };
-//   const SaveCartState = async () => {
-//     await updateUserCart(cart)
-//   }
+  return (
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        HandelDecares,
+        HandelIncases,
+        removeFromCart,
+        clearCart,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
 
-//   return (
-//     <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, HandelIncases, HandelDecrees, SaveCartState }}>
-//       {children}
-//     </CartContext.Provider>
-//   );
-// };
+export default CartProvider;
 
-// export default CartProvider;
-
-// // Custom hook to use the Cart Context
-// export const useCartContext = () => useContext(CartContext);
+// Custom hook to use the Cart Context
+export const useCartContext = () => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error("useCartContext must be used within a CartProvider");
+  }
+  return context;
+};
