@@ -6,7 +6,6 @@ import "./Header.css";
 import { BiUserCircle } from "react-icons/bi";
 import { LuLogOut } from "react-icons/lu";
 import { useUserContext } from "../../Provider/UserProvider";
-import { IUser } from "../Register/Sign_up";
 
 
 const Header = () => {

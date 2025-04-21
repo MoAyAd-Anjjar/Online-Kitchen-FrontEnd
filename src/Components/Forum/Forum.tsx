@@ -19,7 +19,6 @@ export interface IFoodItem {
 
 const Forum = () => {
   const [, setImage] = useState<string | null>(null);
-  const [Send, setSend] = useState(false)
   const [previmg, setprevimg] = useState<string | null>(null);
   const [SelectedCategory, setSelectedCategory] = useState<string>("");
   const { CreateFood } = useFood();
@@ -90,7 +89,6 @@ const Forum = () => {
         console.error("Server responded with:", error.response?.data);
       }
     }
-    setSend(false)
   };
 
   const handleSelectionChange = (
