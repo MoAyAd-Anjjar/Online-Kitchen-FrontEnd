@@ -1,3 +1,5 @@
+import { BsHeartFill } from "react-icons/bs";
+
 const popularFoods = [
   {
     name: "Pizza",
@@ -28,17 +30,19 @@ const popularFoods = [
 const Middle = () => {
   return (
     <div className="Popular-Container">
-      <h2>Our Popular Foods</h2>
-      <div className="Card-Container">
-        {popularFoods.map((food, index) => (
-          <div key={index} className="Popular-Food">
-            <img src={food.image} alt={food.name} />
-            <h3>{food.name}</h3>
-            <p>{food.description}</p>
+          <h2>Our Popular Food </h2>
+          <div className="Card-Container">
+            {popularFoods.map((food, index) => (
+              <div key={index} className="Popular-Food">
+                <img src={food.image} alt={food.name} />
+                <span style={{ display: "flex", justifyContent: "space-around",alignItems: "center"}}><h3>{food.name}</h3> <span style={{display: "flex",gap:"2px",alignItems:"center"}}>35<BsHeartFill color="#ff4e4e"></BsHeartFill></span></span>
+                
+                <p>{food.description}</p>
+                <button className="bg-red-400 p-1.5 w-full cursor-pointer rounded-md text-white">Order Now</button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
   );
 };
 

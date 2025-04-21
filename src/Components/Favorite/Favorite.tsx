@@ -1,26 +1,46 @@
-import { useEffect, useState } from "react";
+import {  BsHeartFill } from "react-icons/bs";
+
+const popularFoods = [
+  {
+    name: "Pizza",
+    image:
+      "https://wallpapers.com/images/featured/4k-food-y48pwsir6u6w5iws.jpg",
+    description: "Delicious cheesy pizza with fresh toppings.",
+  },
+  {
+    name: "Sushi",
+    image:
+      "https://wallpapers.com/images/featured/4k-food-y48pwsir6u6w5iws.jpg",
+    description: "Fresh and healthy sushi rolls with wasabi.",
+  },
+  {
+    name: "Burger",
+    image:
+      "https://wallpapers.com/images/featured/4k-food-y48pwsir6u6w5iws.jpg",
+    description: "Juicy burger with crispy fries on the side.",
+  },
+  {
+    name: "Pasta",
+    image:
+      "https://wallpapers.com/images/featured/4k-food-y48pwsir6u6w5iws.jpg",
+    description: "Italian-style pasta with rich creamy sauce.",
+  },
+];
 
 const Favorite = () => {
-  const [images, setImages] = useState<{ imageUrl: string }[]>([]);
-
-  useEffect(() => {
-    fetch("http://192.168.1.100:3030/Food/GetUploads") // Corrected API endpoint
-      .then((res) => res.json())
-      .then((data) => setImages(data))
-      .catch((err) => console.error("Failed to fetch images:", err));
-  }, []);
-
   return (
-    <div>
-      <h2>Uploaded Images</h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-        {images.length > 0 ? (
-          images.map((img, index) => (
-            <img key={index} src={img.imageUrl} alt="Uploaded" width="200" />
-          ))
-        ) : (
-          <p>No images found.</p>
-        )}
+    <div className="Popular-Container">
+      <h2>Favorite Food LIst</h2>
+      <div className="Card-Container">
+        {popularFoods.map((food, index) => (
+          <div key={index} className="Popular-Food">
+            <img src={food.image} alt={food.name} />
+            <span style={{ display: "flex", justifyContent: "space-around",alignItems: "center"}}><h3>{food.name}</h3> <span style={{display: "flex",gap:"2px",alignItems:"center"}}>35<BsHeartFill color="#ff4e4e"></BsHeartFill></span></span>
+            
+            <p>{food.description}</p>
+            <button className="bg-red-400 p-1.5 w-full cursor-pointer rounded-md text-white">Order Now</button>
+          </div>
+        ))}
       </div>
     </div>
   );
